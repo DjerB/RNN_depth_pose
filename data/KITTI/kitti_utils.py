@@ -3,6 +3,7 @@ import itertools
 import numpy as np
 import pykitti
 import sys
+import os
 from collections import Counter, namedtuple
 from scipy.interpolate import LinearNDInterpolator
 import matplotlib.pyplot as plt
@@ -193,7 +194,7 @@ def create_samples_from_sequence_kitti(tfrecordfile, kitti_path, depth_path, seq
     intrinsics[1, 1] = intrinsics_ori[1, 1] * resizedheight / ori_height
     intrinsics[1, 2] = intrinsics_ori[1, 2] * resizedheight / ori_height
 
-    import pdb;pdb.set_trace()
+    #import pdb;pdb.set_trace()
 
     homo_intrinsic = np.concatenate([intrinsics,np.zeros([3,1])],axis=1)
     homo_intrinsic = np.concatenate([homo_intrinsic,np.zeros([1,4])],axis=0)
