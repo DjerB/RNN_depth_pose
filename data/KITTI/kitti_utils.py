@@ -203,17 +203,22 @@ def create_samples_from_sequence_kitti(tfrecordfile, kitti_path, depth_path, seq
 
     for idx in range(len(dataset.velo_files)):
 
-
+        
         file = dataset.cam3_files[idx].split('/')[-1]
         depth_file = os.path.join(depth_path,seq_name,'proj_depth','groundtruth','image_03',file)
         if not os.path.isfile(depth_file):
             continue
+            
+        print('depth found')
 
         image, pose = read_image_depth_from_idx(dataset,idx, resizedwidth, resizedheight)
         #import pdb;pdb.set_trace()
         depth = depth_read(depth_file)
+        print('depth read')
         S = generate_surface(depth,ori_width,ori_height,intrinsics_ori[0, 0],intrinsics_ori[1, 1],intrinsics_ori[0, 2],intrinsics_ori[1, 2])
+        print('surface generated')
         depth = generate_depth_map(homo_intrinsic, S, image.shape[:2])
+        print('depth map generated')
 
         # import pdb;pdb.set_trace()
         # plt.imsave("image2.png", image)
