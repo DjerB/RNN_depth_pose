@@ -165,11 +165,17 @@ def create_samples_from_sequence_kitti(tfrecordfile, kitti_path, depth_path, seq
     resizedheight = 128
     resizedwidth = 416
     generated_groups = 0
+    
+    print(seq_name)
 
     date = seq_name[:10]
     drive = seq_name[-9:-5]
+    
+    print(date, "----", drive)
 
     dataset = pykitti.raw(kitti_path, date, drive)
+    
+    print(dataset)
 
     #A tuple to store information for each view
     View_kitti = namedtuple('View', {'P', 'K', 'image', 'depth'})
