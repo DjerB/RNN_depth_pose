@@ -187,6 +187,7 @@ def create_samples_from_sequence_kitti(tfrecordfile, kitti_path, depth_path, seq
     dataset.calib.P_rect_30[2,3] *= 0
 
     if len(dataset.velo_files)<=0:
+        print("exit because of lack of files")
     	return 0
 
     image = np.array(dataset.get_cam3(0))
@@ -207,7 +208,7 @@ def create_samples_from_sequence_kitti(tfrecordfile, kitti_path, depth_path, seq
     homo_intrinsic[3,3]=1.0
     mean_baseline = []
     
-    print(len(dataset.velo_files))
+    print("length of dataset", len(dataset.velo_files))
 
     for idx in range(len(dataset.velo_files)):
         
