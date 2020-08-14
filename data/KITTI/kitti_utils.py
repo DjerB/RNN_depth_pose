@@ -206,8 +206,12 @@ def create_samples_from_sequence_kitti(tfrecordfile, kitti_path, depth_path, seq
     homo_intrinsic = np.concatenate([homo_intrinsic,np.zeros([1,4])],axis=0)
     homo_intrinsic[3,3]=1.0
     mean_baseline = []
+    
+    print(len(dataset.velo_files))
 
     for idx in range(len(dataset.velo_files)):
+        
+        print(idx)
 
         
         file = dataset.cam3_files[idx].split('/')[-1]
