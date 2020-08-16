@@ -54,6 +54,7 @@ def average_gradients(tower_grads):
             List of pairs of (gradient, variable) where the gradient has been averaged
             across all towers.
     """
+    print(tower_grads)
     average_grads = []
     for grad_and_vars in zip(*tower_grads):
 
@@ -124,11 +125,14 @@ def main():
     with tf.variable_scope(tf.get_variable_scope()) as outer_scope:
         for i, id in enumerate(devices):
             name = 'tower_{}'.format(i)
+            
+            print(name)
 
             # Loop through all available GPU
             with tf.device(assign_to_device(id, controller)), tf.name_scope(name):
 
                 # Load a sample
+                print("Load sample")
 
                 data_dict = m_trainer.load_data(dataLoader)
 
@@ -138,9 +142,11 @@ def main():
                     data_dict = tf.cond(eval_step, lambda:eval_data_dict, lambda:data_dict)
 
                 # Forward network
+                print("Forward")
                 estimates = m_trainer.construct_model(data_dict) #
 
                 # Compute Loss
+                print("Compute loss")
                 losses, all_losses, output_dict = m_trainer.compute_loss(estimates,  data_dict, global_step)#  est_depths_bw, est_poses_bw,
 
                 tower_loss.append(losses)
@@ -148,6 +154,7 @@ def main():
                 # Construct summary
                 # Compute gradients
                 with tf.name_scope("compute_gradients"):
+                    print("Compute gradients")
                     # Get the gradient pairs (Tensor, Variable)
                     #depth_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope="pose_net")
                     update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
@@ -166,7 +173,9 @@ def main():
 
         # This function is defined below; it takes the list of (gradient, variable) lists
         # and turns it into a single (gradient, variables) list.
+        print("Apply gradients ", tower_grads)
         gradients = average_gradients(tower_grads)
+        print(gradients)
         apply_gradient_op = optim.apply_gradients(gradients, global_step)
         avg_loss = tf.reduce_mean(tower_loss)
 
