@@ -84,7 +84,7 @@ def main():
     parser.add_argument("--num_epochs", type=int, default=20, help="The number of training epochs")
     parser.add_argument("--summary_freq", type=int, default=100, help="The frequence to summarize and save model")
     parser.add_argument("--eval_freq", type=int, default=1000, help="The frequence to evaluate model")
-    parser.add_argument("--save_latest_freq", type=int, default=5000, help="The frequence to save model")
+    parser.add_argument("--save_latest_freq", type=int, default=500, help="The frequence to save model")
 
 
     args = None
