@@ -665,6 +665,7 @@ class RNN_depth_trainer:
 
             try:
                 step = 0
+                print(step)
                 while True:
                     start_time = time.time()
                     fetches = {
@@ -680,6 +681,8 @@ class RNN_depth_trainer:
                         fetches["train_op"] = train_op
 
                     results = sess.run(fetches, feed_dict={eval_step: do_eval})
+                    
+                    print("results done")
 
                     duration = time.time() - start_time
 
@@ -703,7 +706,7 @@ class RNN_depth_trainer:
                     # Save latest model
                     if step % args.save_latest_freq == 0:
                         self.save(sess, args.checkpoint_dir, step, saver)
-
+                        
                     step += 1
 
             except tf.errors.OutOfRangeError:
