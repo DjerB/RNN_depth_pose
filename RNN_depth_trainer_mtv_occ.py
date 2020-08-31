@@ -710,6 +710,7 @@ class RNN_depth_trainer:
                     step += 1
 
             except tf.errors.OutOfRangeError:
+                self.save(sess, args.checkpoint_dir, step, saver)
                 print('Total time: %f' % total_time)
                 print('Done training for %d epochs, %d steps.' % (self.num_epochs,
                                                                   step))
