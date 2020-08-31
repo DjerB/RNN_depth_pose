@@ -14,8 +14,8 @@ class RNN_depth_trainer:
     def initDataloader(self,
                        dataset_dir,
                        batch_size=1, #3
-                       img_height=240, #192,#
-                       img_width=320, #256,#
+                       img_height=128#240, #192,#
+                       img_width=416#320, #256,#
                        num_views=10,
                        num_epochs=50,
                        is_training=True):
